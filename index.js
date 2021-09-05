@@ -1,3 +1,4 @@
+const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const Joi = require('joi');
@@ -9,7 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
-app.use(morgan('tiny'));
+
+//configuration
+console.log('Name is:', config.get('name'));
+console.log('Server is:', config.get('mail.host'));
+console.log('Password is:', config.get('mail.password'));
 
 if (app.get('env') === 'development'){
     app.use(morgan('tiny'));
@@ -81,7 +86,3 @@ function validateCourse(course){
 
 const port = process.env.PORT || 3000;
 app.listen(3000, () => console.log(`Listening on port ${port}...`));
-<<<<<<< HEAD
-
-=======
->>>>>>> f87379e5505091ddbb638f5bdf3cf61f9abe216f
