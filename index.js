@@ -1,3 +1,5 @@
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
 const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -12,14 +14,17 @@ app.use(express.static('public'));
 app.use(helmet());
 
 //configuration
-console.log('Name is:', config.get('name'));
-console.log('Server is:', config.get('mail.host'));
-console.log('Password is:', config.get('mail.password'));
+// console.log('Name is:', config.get('name'));
+// console.log('Server is:', config.get('mail.host'));
+// console.log('Password is:', config.get('mail.password'));
 
 if (app.get('env') === 'development'){
     app.use(morgan('tiny'));
-    console.log('Morgan enabled...');
+    startupDebugger('Morgan enabled...');
 }
+
+//DB work...
+dbDebugger('Connected to the Database...');
 
 app.use(logger);
 
